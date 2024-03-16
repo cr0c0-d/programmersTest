@@ -90,7 +90,7 @@ def solutionGPT(N, stages):
             stage_failure[stage] = 0
 
     # 실패율을 기준으로 스테이지 정렬
-    sorted_stages = sorted(stage_failure, key=lambda x: (stage_failure[x], -x), reverse=True)
+    sorted_stages = sorted(stage_failure, key=lambda x: (stage_failure[x], -x), reverse=True)   # lambda x: (stage_failure[x], -x) => stage_failure[x] 값으로 내림차순 정렬을 하되, -x : 같은 값일 경우 인덱스 오름차순으로 정렬하라
 
     return sorted_stages
 
