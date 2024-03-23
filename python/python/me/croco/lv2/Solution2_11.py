@@ -55,7 +55,7 @@ orders	course	result
 from collections import Counter
 from itertools import combinations
 def solution(orders, course) :
-    # Counter, Combinations를 활욜
+    # Counter, Combinations를 활용
     # Counter : iterable한 객체의 수를 세어준다.
     # Combinations : 문자열의 조합을 배열로 반환
     answer = [ ]
@@ -73,17 +73,18 @@ def solution(orders, course) :
 
     return sorted(answer)
 
-    ## most_common()을 써서 이런 방법도 가능
-    ## most_common() : Counter의 메서드, 요소들이 등장하는 횟수를 기준으로 정렬된 배열 반환
-
+    # ## most_common()을 써서 이런 방법도 가능
+    # ## most_common() : Counter의 메서드, 요소들이 등장하는 횟수를 기준으로 정렬된 배열 반환
+    #
     # answer = [ ]
     #
     # for num in course :
     #     menu = [comb for order in orders for comb in combinations(sorted(order), num)]   # combinations는 순서가 다르면 다른 조합으로 간주하므로, order를 정렬해줘야 함(정렬 안하면 A,B와 B,A를 다른 조합으로 간주)
     #     count = Counter(menu).most_common()
-    #     for m, c in count :
-    #         if c == count[0][1] :
-    #             answer.append(''.join(m))
+    #     if count and count[0][1] >= 2 :
+    #         for m, c in count :
+    #             if c == count[0][1] :
+    #                 answer.append(''.join(m))
     # return sorted(answer)
 
 
