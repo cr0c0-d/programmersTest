@@ -68,16 +68,31 @@ TOBEORNOTTOBEORTOBEORNOT	[20, 15, 2, 5, 15, 18, 14, 15, 20, 27, 29, 31, 36, 30, 
 ABABABABABABABAB	[1, 2, 27, 29, 28, 31, 30]
 '''
 def solution(msg) :
+    # 사전 초기화 : A=1부터 Z까지 dict에 넣기
+    # 한글자씩 순회하여 더하며 사전에 있는지 확인
+    # 사전에 없으면 있는데까지 출력 + 새로 합쳐진 단어 사전에 등록
+    # 사전에 있으면 다음 한 글자까지 합쳐서 다시 확인
+
     dict = {}
+    answer = [ ]
 
     for i in range(65, 91) :
         dict[chr(i)] = i-64
 
+    word = ""
     for i in msg :
-        print(i)
 
-    answer = [ ]
+        if word+i in dict :
+            word += i
+            continue
+
+        else :
+            answer.append(dict[word])
+            dict[word+i] = max(dict.values()) + 1
+            word = i
+
+    answer.append((dict[word]))
     return answer
 
-msg	= "TOBEORNOTTOBEORTOBEORNOT"
+msg	= "ABABABABABABABAB"
 print(solution(msg))
