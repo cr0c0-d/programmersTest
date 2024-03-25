@@ -54,6 +54,7 @@ TOB	E	36	39: TOBE
 EO	R	30	40: EOR
 RN	O	32	41: RNO
 OT		34
+
 입력 형식
 입력으로 영문 대문자로만 이뤄진 문자열 msg가 주어진다. msg의 길이는 1 글자 이상, 1000 글자 이하이다.
 
@@ -67,6 +68,14 @@ TOBEORNOTTOBEORTOBEORNOT	[20, 15, 2, 5, 15, 18, 14, 15, 20, 27, 29, 31, 36, 30, 
 ABABABABABABABAB	[1, 2, 27, 29, 28, 31, 30]
 '''
 def solution(msg) :
+    dict = {}
+
+    for i in range(65, 91) :
+        dict[chr(i)] = i-64
+
+    for i in msg :
+        print(i)
+
     answer = [ ]
     return answer
 
