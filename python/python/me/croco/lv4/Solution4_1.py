@@ -35,12 +35,12 @@ def solution(n, edges) :
         edge_list[i].append(k)
         edge_list[k].append(i)
 
-    centers = findCenter(edge_list)
 
-    distance, node_1 = bfs(1, edge_list)
-    distance, node_2 = bfs(node_1, edge_list)
+    dist_1, node_1 = bfs(1, edge_list)
+    dist_2, node_2 = bfs(node_1[0], edge_list)
+    dist_3, node_3 = bfs(node_2[0], edge_list)
 
-    return centers == 2 and distance - 1 or distance
+    return (len(node_2) == 1 and len(node_3) == 1) and dist_3 - 1 or dist_3
 
 
 def bfs(start, edge_list) :
@@ -59,24 +59,7 @@ def bfs(start, edge_list) :
                 queue.append((i, distance + 1))
                 visited[i] = distance + 1
 
-    return max_distance, visited.index(max_distance)
-
-def findCenter(edge_list) :
-    edges = copy.deepcopy(edge_list)
-    leaves = [i for i in edges if len(edge_list[i]) == 1]
-
-    while len(edges) > 2 :
-        newLeaves = []
-        for i in leaves :
-            neighbor = edges.pop(i)[0]
-            edges[neighbor].remove(i)
-
-
-            if len(edges[neighbor]) == 1 :
-                newLeaves.append(neighbor)
-
-    return len(newLeaves)
-
+    return max_distance, [i for i, v in enumerate(visited) if v == max_distance]
 
 
 n, edges = 5, [[1,5],[2,5],[3,5],[4,5]]
