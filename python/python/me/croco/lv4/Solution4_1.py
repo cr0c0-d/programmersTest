@@ -27,27 +27,29 @@ n	edges	result
 from collections import deque
 import copy
 def solution(n, edges) :
-    # 트리의 지름이 모든 f값 중 가장 큰 값
+    edge_list = { i : [ ] for i in range(1, n+1) }  # { 노드의 번호 : [연결된 노드 리스트] }
 
-    edge_list = { i : [ ] for i in range(1, n+1) }
-
-    for i, k in edges :
+    for i, k in edges : # edge_list에 노드 리스트를 연결하는 과정
         edge_list[i].append(k)
         edge_list[k].append(i)
 
+    dist_1, node_1 = bfs(1, edge_list)  # 임의의 노드(1번)로부터 가장 먼 노드들과 거리를 가져옴
+    dist_2, node_2 = bfs(node_1[0], edge_list)  # 위에서 구한 노드(node_1 중 하나)로부터 가장 먼 노드들과 거리를 가져옴
+    dist_3, node_3 = bfs(node_2[0], edge_list)  # 위에서 구한 노드(node_2 중 하나)로부터 가장 먼 노드들과 거리를 가져옴
 
-    dist_1, node_1 = bfs(1, edge_list)
-    dist_2, node_2 = bfs(node_1[0], edge_list)
-    dist_3, node_3 = bfs(node_2[0], edge_list)
-
+    # node_2와 node_3이 모두 유일한 노드이면 => 최대 거리(지름)의 -1 반환
+    # 유일한 노드가 아니면 => 최대 거리 반환
     return (len(node_2) == 1 and len(node_3) == 1) and dist_3 - 1 or dist_3
 
 
+# 주어진 노드로부터 가장 먼 거리에 있는 노드의 목록과 그 거리를 반환함
 def bfs(start, edge_list) :
-    visited = [-1] * (len(edge_list) + 2)
+
+    # 노드에 방문하면 그 거리를 기록하기 위함
+    visited = [-1] * (len(edge_list) + 1)   # 노드 번호로 접근하기 위해 길이 + 1만큼 생성함
     queue = deque()
-    queue.append((start, 0))
-    visited[start] = 0
+    queue.append((start, 0))    # 주어진 노드와 0을 삽입
+    visited[start] = 0  # 방문처리(시작 노드이므로 거리는 0)
     max_distance = 0
 
     while queue :
@@ -59,6 +61,7 @@ def bfs(start, edge_list) :
                 queue.append((i, distance + 1))
                 visited[i] = distance + 1
 
+    # 최대 거리와, visited에서 최대 거리로 기록된 노드들을 배열로 반환함
     return max_distance, [i for i, v in enumerate(visited) if v == max_distance]
 
 
