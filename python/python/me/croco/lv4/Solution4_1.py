@@ -25,7 +25,6 @@ n	edges	result
 5	[[1,5],[2,5],[3,5],[4,5]]	2
 '''
 from collections import deque
-import copy
 def solution(n, edges) :
     edge_list = { i : [ ] for i in range(1, n+1) }  # { 노드의 번호 : [연결된 노드 리스트] }
 
@@ -35,11 +34,10 @@ def solution(n, edges) :
 
     dist_1, node_1 = bfs(1, edge_list)  # 임의의 노드(1번)로부터 가장 먼 노드들과 거리를 가져옴
     dist_2, node_2 = bfs(node_1[0], edge_list)  # 위에서 구한 노드(node_1 중 하나)로부터 가장 먼 노드들과 거리를 가져옴
-    dist_3, node_3 = bfs(node_2[0], edge_list)  # 위에서 구한 노드(node_2 중 하나)로부터 가장 먼 노드들과 거리를 가져옴
 
-    # node_2와 node_3이 모두 유일한 노드이면 => 최대 거리(지름)의 -1 반환
+    # node_1과 node_2이 모두 유일한 노드이면(한 가지 경로이면) => 최대 거리(지름)의 -1 반환
     # 유일한 노드가 아니면 => 최대 거리 반환
-    return (len(node_2) == 1 and len(node_3) == 1) and dist_3 - 1 or dist_3
+    return (len(node_1) == 1 and len(node_2) == 1) and dist_2 - 1 or dist_2
 
 
 # 주어진 노드로부터 가장 먼 거리에 있는 노드의 목록과 그 거리를 반환함
