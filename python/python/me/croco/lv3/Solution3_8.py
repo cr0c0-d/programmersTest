@@ -63,7 +63,8 @@ def find_root(start, islands) :
     if parent == start :
         return start
     else :
-        return find_root(parent, islands)
+        islands[start] = find_root(parent, islands) # 경로 압축
+        return islands[start]
 
 
 
